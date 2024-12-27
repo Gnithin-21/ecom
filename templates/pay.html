@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay with Razorpay</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url('https://example.com/background-image.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #fff; /* Ensure text is readable on the background */
+        }
+    
+        h2 {
+            color: #fff; /* Ensure contrast with background */
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    
+        #rzp-button1 {
+            padding: 12px 25px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #3399cc;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    
+        #rzp-button1:hover {
+            background-color: #287a9c;
+            transform: translateY(-2px);
+        }
+    
+        #rzp-button1:active {
+            background-color: #1f6372;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <h2>Pay for {{ name }} - ₹{{ price }}</h2>
+    <button id="rzp-button1">Pay Now</button>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {
+            "key": "rzp_test_gLbokT3TvelR0s", // Enter your Razorpay Key ID here
+            "amount": "{{ order.amount }}", // Amount in paise
+            "currency": "INR",
+            "name": "{{ name }}",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": "{{ order.id }}", // Pass the order ID from Razorpay
+            "handler": function (response){
+                // Redirect to success route with the payment details
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/success';
+
+                form.innerHTML = `
+                    <input type="hidden" name="razorpay_payment_id" value="${response.razorpay_payment_id}">
+                    <input type="hidden" name="razorpay_order_id" value="${response.razorpay_order_id}">
+                    <input type="hidden" name="razorpay_signature" value="${response.razorpay_signature}">
+                    <input type="hidden" name="name" value="{{name}}">
+                    <input type="hidden" name="total_price" value="{{price}}">
+                    <input type="hidden" name="itemid" value="{{itemid}}">
+                    <input type="hidden" name="qyt" value="{{qty}}">
+                `;
+                document.body.appendChild(form);
+                form.submit();
+            },
+            "prefill": {
+                "name": "Test User",
+                "email": "session.get('user')",
+                "contact": "9999999999"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        document.getElementById('rzp-button1').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+</body>
+</html>

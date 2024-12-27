@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='addcategory.css')}}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        div {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input, textarea, select {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #80bdff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        }
+        label {
+            font-size: 14px;
+            color: #495057;
+            margin-bottom: -10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="text" name="name" id="" placeholder="Enter Item Name" required>
+            <textarea name="discription" placeholder="discription" required></textarea>
+            <input type="number" name="qty" id="" placeholder="Enter Item Quantity">
+            <label for="">category</label>
+            <select name="category" id="">
+                <option value="electronics">electronics</option>
+                <option value="grocery">grocery</option>
+                <option value="fashion">fashion</option>
+                <!-- <option value="home">home</option> -->
+            </select>
+            <input type="text" name="price" id="" placeholder="Enter Item price">
+            <input type="file" name="image">
+            <button type="submit">add items</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{{url_for('static',filename='reg.css')}}">
+  <style>
+    body{
+      background-color: #f0f0f0;
+      border: 3px solid black;
+      width: fit-content;
+      height: fit-content;
+      margin-top: 200px;
+      margin-left: 600px;
+      padding: 10px;
+      box-shadow:  3px 3px 3px black;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>LOGIN ADMIN</h1>
+    <center>
+      <form method="POST" action="">
+        <input placeholder="USERNAME" type="text" name="username" id="" required><br><br>
+        <input placeholder="PASSWORD" type="password" name="password" id="" required><br><br>
+        <button class="form-button">Submit</button>
+      </form>
+    </center>
+  </div>
+</body>
+</html>

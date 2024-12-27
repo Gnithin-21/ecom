@@ -1,0 +1,38 @@
+<table border="1" style="width: 100%; border-collapse: collapse; text-align: center; font-family: Arial, sans-serif;">
+    <thead style="background-color: #f2f2f2;">
+        <tr>
+            <th style="padding: 10px; border: 1px solid #ddd;">Images</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Name</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Category</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Price</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Quantity</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Total</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Remove</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Payment</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for key, value in items.items() %}
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">
+                <img height="100" width="100" src="{{url_for('static',filename=value[3])}}" alt="{{value[0]}}">
+            </td>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{value[0]}}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{value[4]}}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{value[1]}}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{value[2]}}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{value[1] | int *value[2]}}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">
+                <a href="{{url_for('cartpop',itemid=key)}}">
+                    <button style="background-color: #ff4d4d; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">Remove</button>
+                </a>
+            </td>
+            <td style="padding: 10px; border: 1px solid #ddd;">
+                <a href="{{url_for('pay', itemid=key, name=value[0], price=value[1])}}">
+                    <button style="background-color: #4CAF50; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">Pay</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
